@@ -7,6 +7,5 @@
     <content url="file://$MODULE_DIR$" />
     <orderEntry type="jdk" jdkName="rbenv: 2.6.2" jdkType="RUBY_SDK" />
     <orderEntry type="sourceFolder" forTests="false" />
-    <orderEntry type="library" scope="PROVIDED" name="sciruby (v0.2.11, rbenv: 2.6.2) [gem]" level="application" />
   </component>
 </module>

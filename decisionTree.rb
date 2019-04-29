@@ -1,108 +1,69 @@
-require 'sciruby'
+require 'csv'
+require_relative 'decision_tree.rb'
 
-class DecisionTree
-  def test_split(index, value, dataset)
-    left, right = Array.new, Array.new
-    for row in dataset
-      if row[index] < value
-        left.append(row)
-      else
-        right.append(row)
-      end
+def cross_validation_split(dataset, n_folds)
+  rnd = Random.new(1)
+  dataset_split = []
+  dataset_copy = dataset.to_a
+  fold_size = (dataset.length / n_folds).to_i
+  rand_value = dataset_copy.length
+  (0...n_folds).each do |i|
+    fold = []
+    while fold.length < fold_size
+      index = rnd.rand(rand_value)
+      rand_value -= 1
+      fold << dataset_copy[index]
+      dataset_copy.pop[index]
     end
-    return left, right
+    dataset_split << fold
   end
-
-  def get_split(dataset)
-    dataset_rows = Array.new
-    dataset.each do |row|
-      dataset_rows.append(row[-1])
-    end
-    class_values = dataset_rows.uniq
-    pp dataset[0].length - 1
-    b_index, b_value, b_score, b_groups = 999, 999, 999, nil
-    for index in (0..dataset[0].length - 1)
-      dataset.each do |row|
-        groups = test_split(index, row[index], dataset)
-        gini = gini_index(groups, class_values)
-        if gini < b_score
-          b_index, b_value, b_score, b_groups = index, row[index], gini, groups
-        end
-      end
-    end
-    return {index: b_index, value: b_value, groups: b_groups}
-  end
-
-  def gini_index(groups, classes)
-    n_instances = 0.0
-    groups.each do |group|
-      n_instances += group.size
-    end
-    gini = 0.0
-    groups.each do |group|
-      size = group.size
-      unless size == 0
-        score = 0.0
-        classes.each do |class_val|
-          p = 0.0
-          count = 0.0
-          group.each do |row|
-            if row[-1] == class_val
-              count += 1
-            end
-          end
-          p = count / size
-          score += p * p
-        end
-        gini += (1.0 - score) * (size / n_instances)
-      end
-    end
-    return gini
-  end
-
-  def to_terminal(group)
-    outcomes = Array.new
-    group.each do |row|
-      outcomes.append(row[-1])
-    end
-    return outcomes.max
-  end
-
-  def split(node, max_depth, min_size, depth)
-    left, right = node[:groups]
-    # check for a no split
-    if not left or not right
-      node[:left] = node[:right] = to_terminal(left + right)
-      return
-    end
-    # check for max depth
-    if depth >= max_depth
-      node[:left], node[:right] = to_terminal(left), to_terminal(right)
-      return
-    end
-    # process left child
-    if len(left) <= min_size
-      node[:left] = to_terminal(left)
-    else
-      node[:left] = get_split(left)
-      split(node[:left], max_depth, min_size, depth+1)
-    end
-    # process right child
-    if len(right) <= min_size
-      node[:right] = to_terminal(right)
-    else
-      node[:right] = get_split(right)
-      split(node[:right], max_depth, min_size, depth+1)
-    end
-  end
-
-  def build_tree(train, max_depth, min_size)
-    root = get_split(train)
-    split(root, max_depth, min_size, 1)
-    return root
-  end
+  dataset_split
 end
 
+def accuracy_metric(actual, predicdect)
+  correct = 0
+  (0...actual.length).each do |i|
+    if actual[i] == predicted[i]
+      correct += 1
+    end
+  end
+  correct / actual.length.to_f * 100
+end
+
+def evaluate_algorithm(dataset, n_folds, *args)
+  folds = cross_validation_split(dataset, n_folds)
+  scores = []
+  folds.each do |fold|
+    train_set = folds
+    train_set.delete(fold)
+    # concat part
+    test_set = []
+    fold.each do |row|
+      row_copy = row.to_a
+      test_set << row_copy
+      row_copy[-1] = nil
+    end
+    predicted = decision_tree(train_set, test_set, *args)
+    actual = []
+    fold.each do |row|
+      actual << row[-1]
+    end
+    accuracy = accuracy_metric(actual, predicted)
+    scores << accuracy
+  end
+  return scores
+end
+
+def decision_tree(train, test, max_depth, min_size)
+  dt = DecisionTree.new
+  dt.build_tree(train, max_depth, min_size)
+  predictions = []
+  test.each do |row|
+    prediction = dt.predict(tree, row)
+    predictions << prediction
+  end
+  predictions
+end
 
 
 dataset = [[2.771244718,1.784783929,0],
@@ -117,10 +78,24 @@ dataset = [[2.771244718,1.784783929,0],
            [6.642287351,3.319983761,1]]
 
 dt = DecisionTree.new
+
 split = dt.get_split(dataset)
 tree = dt.build_tree(dataset, 1, 1)
-pp tree
+# pp tree
 # gi_2 = gini_index([[[1, 0], [1, 0]], [[1, 1], [1, 1]]], [0, 1])
 # pp gi_2
+stump = {index: 0, right: 1, value: 6.642287351, left: 0}
+dataset.each do |row|
+  prediction = dt.predict(stump, row)
+  puts "Expected #{row[-1]}, got #{prediction}"
+end
 
 
+
+dataset = CSV.read('data_banknote_authentication.csv', converters: [CSV::Converters[:float]])
+n_folds = 5
+max_depth = 5
+min_size = 10
+scores = evaluate_algorithm(dataset, n_folds, max_depth, min_size)
+# puts "Scores: #{scores}"
+# puts "Mean accuracy: #{scores.sum/scores.length.to_f}"
