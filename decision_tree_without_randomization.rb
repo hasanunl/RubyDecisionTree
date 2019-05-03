@@ -19,7 +19,7 @@ def evaluate_algorithm(dataset, n_folds, *args)
   split_point =folds.length / 4
   folds_clone = folds.clone
   train_set = folds_clone[0...(split_point*3)]
-  test_set = folds.clone[(split_point*3)..(split_point*4)]
+  test_set = folds_clone[(split_point*3)..(split_point*4)]
   # pp train_set
   predicted = decision_tree(train_set, test_set, *args)
   # pp predicted
