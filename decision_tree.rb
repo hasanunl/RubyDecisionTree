@@ -1,7 +1,8 @@
 class DecisionTree
+
   def test_split(index, value, dataset)
     left, right = [], []
-    for row in dataset
+    dataset.each do |row|
       if row[index] < value
         left.append(row)
       else
@@ -12,14 +13,13 @@ class DecisionTree
   end
 
   def get_split(dataset)
-    dataset_rows = Array.new
+    dataset_rows = []
     dataset.each do |row|
       dataset_rows.append(row[-1])
     end
     class_values = dataset_rows.uniq
-    pp dataset[0].length - 1
     b_index, b_value, b_score, b_groups = 999, 999, 999, nil
-    for index in (0..dataset[0].length - 1)
+    for index in (0...dataset[0].length - 1)
       dataset.each do |row|
         groups = test_split(index, row[index], dataset)
         gini = gini_index(groups, class_values)
@@ -38,7 +38,7 @@ class DecisionTree
     end
     gini = 0.0
     groups.each do |group|
-      size = group.size
+      size = group.length.to_f
       unless size == 0
         score = 0.0
         classes.each do |class_val|
@@ -50,7 +50,8 @@ class DecisionTree
             end
           end
           p = count / size
-          score += p * p
+          score_value = p * p
+          score = score_value
         end
         gini += (1.0 - score) * (size / n_instances)
       end
@@ -59,7 +60,7 @@ class DecisionTree
   end
 
   def to_terminal(group)
-    outcomes = Array.new
+    outcomes = []
     group.each do |row|
       outcomes.append(row[-1])
     end
@@ -68,8 +69,8 @@ class DecisionTree
 
   def split(node, max_depth, min_size, depth)
     left, right = node[:groups]
-    # check for a no split
-    if not left or not right
+    node.delete(:groups)
+    if not(left) || not(right)
       node[:left] = node[:right] = to_terminal(left + right)
       return
     end
@@ -79,25 +80,26 @@ class DecisionTree
       return
     end
     # process left child
-    if len(left) <= min_size
+    if left.length <= min_size
       node[:left] = to_terminal(left)
     else
       node[:left] = get_split(left)
       split(node[:left], max_depth, min_size, depth+1)
     end
     # process right child
-    if len(right) <= min_size
+    if right.length <= min_size
+      node[:right]
       node[:right] = to_terminal(right)
     else
       node[:right] = get_split(right)
       split(node[:right], max_depth, min_size, depth+1)
     end
+    node
   end
 
   def build_tree(train, max_depth, min_size)
     root = get_split(train)
     split(root, max_depth, min_size, 1)
-    return root
   end
 
   def predict(node, row)
@@ -105,13 +107,13 @@ class DecisionTree
       if node[:left].class == Hash
         predict(node[:left], row)
       else
-        return node[:left]
+        node[:left]
       end
     else
       if node[:right].class == Hash
         predict(node[:right], row)
       else
-        return node[:right]
+        node[:right]
       end
     end
   end

@@ -7,5 +7,6 @@
     <content url="file://$MODULE_DIR$" />
     <orderEntry type="jdk" jdkName="rbenv: 2.6.2" jdkType="RUBY_SDK" />
     <orderEntry type="sourceFolder" forTests="false" />
+    <orderEntry type="library" scope="PROVIDED" name="memory_profiler (v0.9.13, rbenv: 2.6.2) [gem]" level="application" />
   </component>
 </module>
