@@ -1,4 +1,4 @@
-class DecisionTree
+class RandomForestDecisionTree
   def test_split(index, value, dataset)
     left, right = [], []
     dataset.each do |row|
@@ -11,14 +11,21 @@ class DecisionTree
     return left, right
   end
 
-  def get_split(dataset)
+  def get_split(dataset, n_features, rnd)
     dataset_rows = []
     dataset.each do |row|
       dataset_rows.append(row[-1])
     end
     class_values = dataset_rows.uniq
     b_index, b_value, b_score, b_groups = 999, 999, 999, nil
-    for index in (0...dataset[0].length - 1)
+    features = []
+    while features.length < n_features
+      index = rnd.rand(dataset[0].length - 1)
+      unless features.include?(index)
+        features << index
+      end
+    end
+    features.each do |index|
       dataset.each do |row|
         groups = test_split(index, row[index], dataset)
         gini = gini_index(groups, class_values)
@@ -67,7 +74,7 @@ class DecisionTree
     outcomes.uniq.max_by { |x| outcomes.count }
   end
 
-  def split(node, max_depth, min_size, depth)
+  def split(node, max_depth, min_size, n_features, depth, rnd)
     node[:left], node[:right] = node[:groups]
     node.delete(:groups)
     if node[:left].empty? || node[:right].empty?
@@ -86,22 +93,22 @@ class DecisionTree
     if node[:left].length <= min_size
       node[:left] = to_terminal(node[:left])
     else
-      node[:left] = get_split(node[:left])
-      split(node[:left], max_depth, min_size, depth + 1)
+      node[:left] = get_split(node[:left], n_features, rnd)
+      split(node[:left], max_depth, min_size, n_features, depth + 1, rnd)
     end
     # process right child
     if node[:right].length <= min_size
       node[:right] = to_terminal(node[:right])
     else
-      node[:right] = get_split(node[:right])
-      split(node[:right], max_depth, min_size, depth + 1)
+      node[:right] = get_split(node[:right], n_features, rnd)
+      split(node[:right], max_depth, min_size, n_features, depth + 1, rnd)
     end
     node
   end
 
-  def build_tree(train, max_depth, min_size)
-    root = get_split(train)
-    split(root, max_depth, min_size, 1)
+  def build_tree(train, max_depth, min_size, n_features, rnd)
+    root = get_split(train, n_features, rnd)
+    split(root, max_depth, min_size, n_features, 1, rnd)
   end
 
   def predict(node, row)

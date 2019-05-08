@@ -11,6 +11,9 @@ Created on Wed May  1 22:37:06 2019
 from random import seed
 from random import randrange
 from csv import reader
+from memory_profiler import profile
+
+@profile
 
 # Load a CSV file
 def load_csv(filename):
@@ -52,7 +55,6 @@ def evaluate_algorithm(dataset, algorithm, n_folds, *args):
     for fold in folds:
         train_set = list(folds)
         train_set.remove(fold)
-        print(len(folds))
         train_set = sum(train_set, [])
         test_set = list()
         for row in fold:
@@ -109,7 +111,8 @@ def get_split(dataset):
 
 # Create a terminal node value
 def to_terminal(group):
-    outcomes = [row[-1] for row in group]
+    for row in group:
+        outcomes = [row[-1] for row in group]
     return max(set(outcomes), key=outcomes.count)
 
 # Create child splits for a node or make terminal
@@ -168,16 +171,22 @@ def decision_tree(train, test, max_depth, min_size):
 # Test CART on Bank Note dataset
 seed(1)
 # load and prepare data
-filename = 'data_banknote_authentication.csv'
-dataset = load_csv(filename)
-# convert string attributes to integers
-for i in range(len(dataset[0])):
-    str_column_to_float(dataset, i)
-# evaluate algorithm
-n_folds = 5
-max_depth = 5
-min_size = 10
-scores = evaluate_algorithm(dataset, decision_tree, n_folds, max_depth, min_size)
-print('Scores: %s' % scores)
-print('Mean Accuracy: %.3f%%' % (sum(scores)/float(len(scores))))
 
+def decision_tree_test():
+    # load and prepare data
+    filename = 'data_banknote_authentication.csv'
+    dataset = load_csv(filename)
+    # convert string attributes to integers
+    for i in range(len(dataset[0])):
+        str_column_to_float(dataset, i)
+    # evaluate algorithm
+    n_folds = 5
+    max_depth = 5
+    min_size = 10
+    scores = evaluate_algorithm(dataset, decision_tree, n_folds, max_depth, min_size)
+    print('Scores: %s' % scores)
+    print('Mean Accuracy: %.3f%%' % (sum(scores)/float(len(scores))))
+
+if __name__ == '__main__':
+    import timeit
+    print(timeit.timeit("decision_tree_test()", setup="from __main__ import decision_tree_test", number=1))

@@ -59,7 +59,7 @@ end
 
 def decision_tree(train, test, max_depth, min_size)
   dt = DecisionTree.new
-  tree = dt.build_tree(train, max_depth, min_size)
+  tree = dt.build_tree(train.clone, max_depth, min_size)
   predictions = []
   test.each do |row|
     prediction = dt.predict(tree, row)
@@ -81,21 +81,20 @@ end
 n_folds = 5
 max_depth = 5
 min_size = 10
-scores = evaluate_algorithm(dataset, n_folds, max_depth, min_size)
+scores = evaluate_algorithm(dataset.clone, n_folds, max_depth, min_size)
 puts "Scores: #{scores}"
 puts "Mean accuracy: #{scores.sum/scores.length.to_f}"
 
 puts '***********************************************'
 
 Benchmark.bm do |x|
-  x.report { evaluate_algorithm(dataset, n_folds, max_depth, min_size) }
+  x.report { evaluate_algorithm(dataset.clone, n_folds, max_depth, min_size) }
 end
 
 puts '***********************************************'
 
 report = MemoryProfiler.report do
-  evaluate_algorithm(dataset, 5, 5, 10)
+  evaluate_algorithm(dataset, n_folds, max_depth, min_size)
 end
 
 report.pretty_print
-
