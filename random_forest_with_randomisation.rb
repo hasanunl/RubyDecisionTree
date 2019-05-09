@@ -97,7 +97,7 @@ $rnd = Random.new(2)
 
 dataset = []
 
-CSV.foreach('sonar.all-data.csv', { converters: :float}) do |row|
+CSV.foreach('data_banknote_authentication.csv', { converters: :float}) do |row|
   dataset << row
 end
 
@@ -117,7 +117,7 @@ def str_column_to_int(dataset, column)
   dataset
 end
 
-dataset = str_column_to_int(dataset, dataset[0].length - 1)
+# dataset = str_column_to_int(dataset, dataset[0].length - 1)
 
 n_folds = 5
 max_depth = 10
@@ -125,10 +125,38 @@ min_size = 1
 sample_size = 1.0
 n_features = dataset[0].length - 1
 n_features = Math.sqrt(n_features).to_i
-pp n_features
-[1, 5, 10].each do |n_trees|
+[1].each do |n_trees|
   scores = evaluate_algorithm(dataset.clone, n_folds.clone, max_depth, min_size, sample_size, n_trees, n_features, $rnd)
   puts "Trees: #{n_trees}"
   puts "Scores: #{scores}"
   puts "Mean accuracy: #{scores.sum/scores.length.to_f}"
 end
+
+def random_forest_with_randomization(dataset)
+  n_folds = 5
+  max_depth = 10
+  min_size = 1
+  sample_size = 1.0
+  n_features = dataset[0].length - 1
+  n_features = Math.sqrt(n_features).to_i
+  [1].each do |n_trees|
+    scores = evaluate_algorithm(dataset.clone, n_folds.clone, max_depth, min_size, sample_size, n_trees, n_features, $rnd)
+    puts "Trees: #{n_trees}"
+    puts "Scores: #{scores}"
+    puts "Mean accuracy: #{scores.sum/scores.length.to_f}"
+  end
+end
+
+puts '***********************************************'
+
+Benchmark.bm do |x|
+  x.report { random_forest_with_randomization(dataset) }
+end
+
+puts '***********************************************'
+
+report = MemoryProfiler.report do
+  random_forest_with_randomization(dataset)
+end
+
+report.pretty_print

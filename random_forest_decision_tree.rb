@@ -79,8 +79,9 @@ class RandomForestDecisionTree
     node.delete(:groups)
     if node[:left].empty? || node[:right].empty?
       node_arg = node[:left] + node[:right]
-      node[:left] = to_terminal(node_arg.clone)
-      node[:right] = to_terminal(node_arg.clone)
+      terminal_value = to_terminal(node_arg)
+      node[:left] = terminal_value
+      node[:right] = terminal_value
       return
     end
     # check for max depth

@@ -39,7 +39,7 @@ def evaluate_algorithm(dataset, n_folds, *args)
     train_set.delete(fold)
     train_set = train_set.flatten(1)
     test_set = []
-    fold.each do |row|
+    fold.clone.each do |row|
       row_copy = row.clone
       test_set << row_copy
       row_copy[-1] = nil
@@ -76,6 +76,24 @@ CSV.foreach('data_banknote_authentication.csv', { converters: :float}) do |row|
   dataset << row
 end
 
+def str_column_to_int(dataset, column)
+  class_values = []
+  dataset.each do |row|
+    class_values << row[column]
+  end
+  unique = class_values.uniq
+  lookup = Hash.new
+  unique.each_with_index { |item, index|
+    lookup[item] = index
+  }
+  dataset.each do |row|
+    row[column] = lookup[row[column]]
+  end
+  dataset
+end
+
+# dataset = str_column_to_int(dataset, dataset[0].length - 1)
+
 # dataset = CSV.read('data_banknote_authentication.csv', converters: [CSV::Converters[:float]])
 #
 n_folds = 5
@@ -84,7 +102,7 @@ min_size = 10
 scores = evaluate_algorithm(dataset.clone, n_folds, max_depth, min_size)
 puts "Scores: #{scores}"
 puts "Mean accuracy: #{scores.sum/scores.length.to_f}"
-
+pp dataset[0].length
 puts '***********************************************'
 
 Benchmark.bm do |x|

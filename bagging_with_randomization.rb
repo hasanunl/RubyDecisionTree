@@ -35,7 +35,6 @@ def evaluate_algorithm(dataset, n_folds, *args)
   folds = cross_validation_split(dataset, n_folds)
   scores = []
   folds.each do |fold|
-    pp fold.length
     train_set = folds.clone.to_a
     train_set.delete(fold)
     train_set = train_set.flatten(1)
@@ -98,7 +97,7 @@ $rnd = Random.new(1)
 
 dataset = []
 
-CSV.foreach('sonar.all-data.csv', { converters: :float}) do |row|
+CSV.foreach('data_banknote_authentication.csv', { converters: :float}) do |row|
   dataset << row
 end
 
@@ -118,15 +117,42 @@ def str_column_to_int(dataset, column)
   dataset
 end
 
-dataset = str_column_to_int(dataset, dataset[0].length - 1)
+# dataset = str_column_to_int(dataset, dataset[0].length - 1)
 
 n_folds = 5
 max_depth = 6
 min_size = 2
 sample_size = 0.50
-[1, 2, 5].each do |n_trees|
+[1].each do |n_trees|
   scores = evaluate_algorithm(dataset.clone, n_folds.clone, max_depth, min_size, sample_size, n_trees)
   puts "Trees: #{n_trees}"
   puts "Scores: #{scores}"
   puts "Mean accuracy: #{scores.sum/scores.length.to_f}"
 end
+
+def bagging_with_randomization(dataset)
+  n_folds = 5
+  max_depth = 6
+  min_size = 2
+  sample_size = 0.50
+  [1].each do |n_trees|
+    scores = evaluate_algorithm(dataset.clone, n_folds.clone, max_depth, min_size, sample_size, n_trees)
+    puts "Trees: #{n_trees}"
+    puts "Scores: #{scores}"
+    puts "Mean accuracy: #{scores.sum/scores.length.to_f}"
+  end
+end
+
+puts '***********************************************'
+
+Benchmark.bm do |x|
+  x.report { bagging_with_randomization(dataset) }
+end
+
+puts '***********************************************'
+
+report = MemoryProfiler.report do
+  bagging_with_randomization(dataset)
+end
+
+report.pretty_print
