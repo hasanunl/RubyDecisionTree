@@ -46,6 +46,7 @@ def evaluate_algorithm(dataset, n_folds, *args)
     end
     # pp train_set
     predicted = decision_tree(train_set, test_set, *args)
+
     # pp predicted
     actual = []
     fold.each do |row|
@@ -72,7 +73,7 @@ $rnd = Random.new(1)
 
 dataset = []
 
-CSV.foreach('data_banknote_authentication.csv', { converters: :float}) do |row|
+CSV.foreach('sonar.all-data.csv', { converters: :float}) do |row|
   dataset << row
 end
 
@@ -92,7 +93,7 @@ def str_column_to_int(dataset, column)
   dataset
 end
 
-# dataset = str_column_to_int(dataset, dataset[0].length - 1)
+dataset = str_column_to_int(dataset, dataset[0].length - 1)
 
 # dataset = CSV.read('data_banknote_authentication.csv', converters: [CSV::Converters[:float]])
 #

@@ -11,9 +11,9 @@ Created on Wed May  1 22:37:06 2019
 from random import seed
 from random import randrange
 from csv import reader
-from memory_profiler import profile
+import psutil
+process = psutil.Process()
 
-@profile
 
 # Load a CSV file
 def load_csv(filename):
@@ -26,6 +26,17 @@ def load_csv(filename):
 def str_column_to_float(dataset, column):
     for row in dataset:
         row[column] = float(row[column].strip())
+        
+# Convert string column to integer
+def str_column_to_int(dataset, column):
+    class_values = [row[column] for row in dataset]
+    unique = set(class_values)
+    lookup = dict()
+    for i, value in enumerate(unique):
+        lookup[value] = i
+    for row in dataset:
+        row[column] = lookup[row[column]]
+    return lookup
 
 # Split a dataset into k folds
 def cross_validation_split(dataset, n_folds):
@@ -174,11 +185,13 @@ seed(1)
 
 def decision_tree_test():
     # load and prepare data
-    filename = 'data_banknote_authentication.csv'
+    filename = 'sonar.all-data.csv'
     dataset = load_csv(filename)
     # convert string attributes to integers
-    for i in range(len(dataset[0])):
+    for i in range(len(dataset[0])-1):
         str_column_to_float(dataset, i)
+    # convert class column to integers
+    str_column_to_int(dataset, len(dataset[0])-1)
     # evaluate algorithm
     n_folds = 5
     max_depth = 5
@@ -187,6 +200,9 @@ def decision_tree_test():
     print('Scores: %s' % scores)
     print('Mean Accuracy: %.3f%%' % (sum(scores)/float(len(scores))))
 
+
 if __name__ == '__main__':
     import timeit
     print(timeit.timeit("decision_tree_test()", setup="from __main__ import decision_tree_test", number=1))
+
+print(process.memory_info())

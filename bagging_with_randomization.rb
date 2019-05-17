@@ -97,7 +97,7 @@ $rnd = Random.new(1)
 
 dataset = []
 
-CSV.foreach('data_banknote_authentication.csv', { converters: :float}) do |row|
+CSV.foreach('sonar.all-data.csv', { converters: :float}) do |row|
   dataset << row
 end
 
@@ -117,13 +117,13 @@ def str_column_to_int(dataset, column)
   dataset
 end
 
-# dataset = str_column_to_int(dataset, dataset[0].length - 1)
+dataset = str_column_to_int(dataset, dataset[0].length - 1)
 
 n_folds = 5
 max_depth = 6
 min_size = 2
 sample_size = 0.50
-[1].each do |n_trees|
+[5].each do |n_trees|
   scores = evaluate_algorithm(dataset.clone, n_folds.clone, max_depth, min_size, sample_size, n_trees)
   puts "Trees: #{n_trees}"
   puts "Scores: #{scores}"
@@ -135,7 +135,7 @@ def bagging_with_randomization(dataset)
   max_depth = 6
   min_size = 2
   sample_size = 0.50
-  [1].each do |n_trees|
+  [5].each do |n_trees|
     scores = evaluate_algorithm(dataset.clone, n_folds.clone, max_depth, min_size, sample_size, n_trees)
     puts "Trees: #{n_trees}"
     puts "Scores: #{scores}"

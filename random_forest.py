@@ -1,14 +1,18 @@
-    # Bagging Algorithm on the Sonar dataset
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+"""
+Created on Wed May 15 01:43:29 2019
 
-
-# CART on the Bank Note dataset
+@author: hsn1997
+"""
+# Random Forest Algorithm on Sonar Dataset
 from random import seed
 from random import randrange
 from csv import reader
-import psutil
-process = psutil.Process()
+from math import sqrt
+import tracemalloc
+tracemalloc.start()
 
- 
 # Load a CSV file
 def load_csv(filename):
     dataset = list()
@@ -66,7 +70,6 @@ def evaluate_algorithm(dataset, algorithm, n_folds, *args):
         train_set.remove(fold)
         train_set = sum(train_set, [])
         test_set = list()
-        print(len(fold)) 
         for row in fold:
             row_copy = list(row)
             test_set.append(row_copy)
@@ -108,13 +111,16 @@ def gini_index(groups, classes):
     return gini
  
 # Select the best split point for a dataset
-def get_split(dataset):
+def get_split(dataset, n_features):
     class_values = list(set(row[-1] for row in dataset))
     b_index, b_value, b_score, b_groups = 999, 999, 999, None
-    for index in range(len(dataset[0])-1):
+    features = list()
+    while len(features) < n_features:
+        index = randrange(len(dataset[0])-1)
+        if index not in features:
+            features.append(index)
+    for index in features:
         for row in dataset:
-        # for i in range(len(dataset)):
-        #     row = dataset[randrange(len(dataset))]
             groups = test_split(index, row[index], dataset)
             gini = gini_index(groups, class_values)
             if gini < b_score:
@@ -127,7 +133,7 @@ def to_terminal(group):
     return max(set(outcomes), key=outcomes.count)
  
 # Create child splits for a node or make terminal
-def split(node, max_depth, min_size, depth):
+def split(node, max_depth, min_size, n_features, depth):
     left, right = node['groups']
     del(node['groups'])
     # check for a no split
@@ -142,19 +148,19 @@ def split(node, max_depth, min_size, depth):
     if len(left) <= min_size:
         node['left'] = to_terminal(left)
     else:
-        node['left'] = get_split(left)
-        split(node['left'], max_depth, min_size, depth+1)
+        node['left'] = get_split(left, n_features)
+        split(node['left'], max_depth, min_size, n_features, depth+1)
     # process right child
     if len(right) <= min_size:
         node['right'] = to_terminal(right)
     else:
-        node['right'] = get_split(right)
-        split(node['right'], max_depth, min_size, depth+1)
+        node['right'] = get_split(right, n_features)
+        split(node['right'], max_depth, min_size, n_features, depth+1)
  
 # Build a decision tree
-def build_tree(train, max_depth, min_size):
-    root = get_split(train)
-    split(root, max_depth, min_size, 1)
+def build_tree(train, max_depth, min_size, n_features):
+    root = get_split(train, n_features)
+    split(root, max_depth, min_size, n_features, 1)
     return root
  
 # Make a prediction with a decision tree
@@ -184,37 +190,40 @@ def bagging_predict(trees, row):
     predictions = [predict(tree, row) for tree in trees]
     return max(set(predictions), key=predictions.count)
  
-# Bootstrap Aggregation Algorithm
-def bagging(train, test, max_depth, min_size, sample_size, n_trees):
+# Random Forest Algorithm
+def random_forest(train, test, max_depth, min_size, sample_size, n_trees, n_features):
     trees = list()
     for i in range(n_trees):
         sample = subsample(train, sample_size)
-        tree = build_tree(sample, max_depth, min_size)
+        tree = build_tree(sample, max_depth, min_size, n_features)
         trees.append(tree)
     predictions = [bagging_predict(trees, row) for row in test]
     return(predictions)
  
-# Test bagging on the sonar dataset
-seed(1)
-
+# Test the random forest algorithm
+seed(2)
 def decision_tree_test():
+    # load and prepare data
     filename = 'data_banknote_authentication.csv'
     dataset = load_csv(filename)
     # convert string attributes to integers
-    for i in range(len(dataset[0])-1):
+    for i in range(0, len(dataset[0])-1):
         str_column_to_float(dataset, i)
     # convert class column to integers
     # str_column_to_int(dataset, len(dataset[0])-1)
     # evaluate algorithm
     n_folds = 5
-    max_depth = 6
-    min_size = 2
-    sample_size = 0.50
+    max_depth = 10
+    min_size = 1
+    sample_size = 1.0
+    n_features = int(sqrt(len(dataset[0])-1))
     for n_trees in [5]:
-        scores = evaluate_algorithm(dataset, bagging, n_folds, max_depth, min_size, sample_size, n_trees)
+        scores = evaluate_algorithm(dataset, random_forest, n_folds, max_depth, min_size, sample_size, n_trees, n_features)
         print('Trees: %d' % n_trees)
         print('Scores: %s' % scores)
-        print('Mean Accuracy: %.3f%%' % (sum(scores)/float(len(scores))))
+        print('Mean Accuracy: %.3f%%' % (sum(scores)/float(len(scores))))  
+
+
 
 if __name__ == '__main__':
     import timeit
@@ -222,4 +231,3 @@ if __name__ == '__main__':
 
 
 print("Current: %d, Peak %d" % tracemalloc.get_traced_memory())
-print(process.memory_info())

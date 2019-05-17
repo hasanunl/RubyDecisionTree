@@ -119,19 +119,6 @@ end
 
 # dataset = str_column_to_int(dataset, dataset[0].length - 1)
 
-n_folds = 5
-max_depth = 10
-min_size = 1
-sample_size = 1.0
-n_features = dataset[0].length - 1
-n_features = Math.sqrt(n_features).to_i
-[1].each do |n_trees|
-  scores = evaluate_algorithm(dataset.clone, n_folds.clone, max_depth, min_size, sample_size, n_trees, n_features, $rnd)
-  puts "Trees: #{n_trees}"
-  puts "Scores: #{scores}"
-  puts "Mean accuracy: #{scores.sum/scores.length.to_f}"
-end
-
 def random_forest_with_randomization(dataset)
   n_folds = 5
   max_depth = 10
@@ -139,7 +126,7 @@ def random_forest_with_randomization(dataset)
   sample_size = 1.0
   n_features = dataset[0].length - 1
   n_features = Math.sqrt(n_features).to_i
-  [1].each do |n_trees|
+  [5].each do |n_trees|
     scores = evaluate_algorithm(dataset.clone, n_folds.clone, max_depth, min_size, sample_size, n_trees, n_features, $rnd)
     puts "Trees: #{n_trees}"
     puts "Scores: #{scores}"
