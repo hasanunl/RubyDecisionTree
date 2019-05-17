@@ -97,9 +97,9 @@ $rnd = Random.new(1)
 
 dataset = []
 
-CSV.foreach('sonar.all-data.csv', { converters: :float}) do |row|
-  dataset << row
-end
+# dataset = CSV.read('data_banknote_authentication.csv', converters: [CSV::Converters[:float]])
+
+dataset = CSV.read('sonar.all-data.csv', converters: [CSV::Converters[:float]])
 
 def str_column_to_int(dataset, column)
   class_values = []

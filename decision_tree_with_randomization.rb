@@ -71,11 +71,9 @@ end
 
 $rnd = Random.new(1)
 
-dataset = []
+# dataset = CSV.read('data_banknote_authentication.csv', converters: [CSV::Converters[:float]])
 
-CSV.foreach('sonar.all-data.csv', { converters: :float}) do |row|
-  dataset << row
-end
+dataset = CSV.read('sonar.all-data.csv', converters: [CSV::Converters[:float]])
 
 def str_column_to_int(dataset, column)
   class_values = []
@@ -95,8 +93,6 @@ end
 
 dataset = str_column_to_int(dataset, dataset[0].length - 1)
 
-# dataset = CSV.read('data_banknote_authentication.csv', converters: [CSV::Converters[:float]])
-#
 n_folds = 5
 max_depth = 5
 min_size = 10

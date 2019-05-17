@@ -97,9 +97,9 @@ $rnd = Random.new(2)
 
 dataset = []
 
-CSV.foreach('data_banknote_authentication.csv', { converters: :float}) do |row|
-  dataset << row
-end
+# dataset = CSV.read('data_banknote_authentication.csv', converters: [CSV::Converters[:float]])
+
+dataset = CSV.read('sonar.all-data.csv', converters: [CSV::Converters[:float]])
 
 def str_column_to_int(dataset, column)
   class_values = []
@@ -117,7 +117,7 @@ def str_column_to_int(dataset, column)
   dataset
 end
 
-# dataset = str_column_to_int(dataset, dataset[0].length - 1)
+dataset = str_column_to_int(dataset, dataset[0].length - 1)
 
 def random_forest_with_randomization(dataset)
   n_folds = 5

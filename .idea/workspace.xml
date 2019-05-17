@@ -1,14 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
-  <component name="BookmarkManager">
-    <bookmark url="file://$PROJECT_DIR$/bagging_with_randomization.rb" line="99" mnemonic="7" />
-  </component>
   <component name="ChangeListManager">
     <list default="true" id="fb7a74d9-a93f-4152-9ba4-2ab082a53462" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bagging_with_randomization.py" beforeDir="false" afterPath="$PROJECT_DIR$/bagging_with_randomization.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/bagging_with_randomization.rb" beforeDir="false" afterPath="$PROJECT_DIR$/bagging_with_randomization.rb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/decision_tree.py" beforeDir="false" afterPath="$PROJECT_DIR$/decision_tree.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/decision_tree_with_randomization.rb" beforeDir="false" afterPath="$PROJECT_DIR$/decision_tree_with_randomization.rb" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/random_forest_with_randomisation.rb" beforeDir="false" afterPath="$PROJECT_DIR$/random_forest_with_randomisation.rb" afterDir="false" />
     </list>
@@ -23,17 +17,17 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/decision_tree.rb">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-322">
+            <state relative-caret-position="-744">
               <caret line="73" column="37" selection-start-line="73" selection-start-column="37" selection-end-line="73" selection-end-column="37" />
             </state>
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/decision_tree_with_randomization.rb">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-819">
-              <caret line="54" column="46" lean-forward="true" selection-start-line="54" selection-start-column="46" selection-end-line="54" selection-end-column="46" />
+            <state relative-caret-position="1044">
+              <caret line="78" column="19" lean-forward="true" selection-start-line="78" selection-start-column="19" selection-end-line="78" selection-end-column="19" />
             </state>
           </provider>
         </entry>
@@ -41,59 +35,17 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/bagging_with_randomization.rb">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-3">
-              <caret line="85" column="17" lean-forward="true" selection-start-line="85" selection-start-column="17" selection-end-line="85" selection-end-column="17" />
+            <state relative-caret-position="219">
+              <caret line="101" column="79" selection-start-line="101" selection-start-column="79" selection-end-line="101" selection-end-column="79" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/data_banknote_authentication.csv">
-          <provider selected="true" editor-type-id="csv-text-editor">
-            <state relative-caret-position="766">
-              <caret line="153" column="31" selection-start-line="153" selection-start-column="31" selection-end-line="153" selection-end-column="31" />
-            </state>
-          </provider>
-          <provider editor-type-id="csv-table-editor">
-            <state showInfoPanel="true" fixedHeaders="false" rowLines="3" />
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/random_forest_with_randomisation.rb">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-522">
-              <caret line="123" column="16" lean-forward="true" selection-start-line="123" selection-start-column="16" selection-end-line="123" selection-end-column="16" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/random_forest_decision_tree.rb">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="783">
-              <caret line="86" column="25" selection-start-line="86" selection-start-column="25" selection-end-line="86" selection-end-column="25" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/sonar.all-data.csv">
-          <provider selected="true" editor-type-id="csv-text-editor">
-            <state relative-caret-position="-18">
-              <caret line="10" column="421" selection-start-line="10" selection-start-column="421" selection-end-line="10" selection-end-column="421" />
-            </state>
-          </provider>
-          <provider editor-type-id="csv-table-editor">
-            <state showInfoPanel="true" fixedHeaders="false" rowLines="3" />
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/decision_tree_without_randomization.rb">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="3105">
-              <caret line="69" selection-start-line="69" selection-end-line="69" />
+            <state relative-caret-position="-30">
+              <caret line="104" column="19" lean-forward="true" selection-start-line="104" selection-start-column="19" selection-end-line="104" selection-end-column="19" />
             </state>
           </provider>
         </entry>
@@ -120,8 +72,8 @@
         <option value="$PROJECT_DIR$/decision_tree_without_randomization.rb" />
         <option value="$PROJECT_DIR$/decision_tree.rb" />
         <option value="$PROJECT_DIR$/random_forest_decision_tree.rb" />
-        <option value="$PROJECT_DIR$/bagging_with_randomization.rb" />
         <option value="$PROJECT_DIR$/decision_tree_with_randomization.rb" />
+        <option value="$PROJECT_DIR$/bagging_with_randomization.rb" />
         <option value="$PROJECT_DIR$/random_forest_with_randomisation.rb" />
       </list>
     </option>
@@ -217,16 +169,18 @@
       <workItem from="1557870005331" duration="5036000" />
       <workItem from="1557903469322" duration="243000" />
       <workItem from="1557918386633" duration="2246000" />
+      <workItem from="1558077309910" duration="1994000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="102927000" />
+    <option name="totallyTimeSpent" value="104921000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="3200" height="1764" extended-state="6" />
+    <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.1183451" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.11962797" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
@@ -239,7 +193,7 @@
       <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
       <window_info anchor="bottom" id="Database Changes" order="8" />
       <window_info anchor="bottom" id="Version Control" order="9" weight="0.32954547" />
-      <window_info active="true" anchor="bottom" id="Terminal" order="10" visible="true" weight="0.34707448" />
+      <window_info anchor="bottom" id="Terminal" order="10" visible="true" weight="0.34707448" />
       <window_info anchor="bottom" id="Event Log" order="11" side_tool="true" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
@@ -307,30 +261,27 @@
     <entry file="file://$PROJECT_DIR$/decision_tree_without_randomization.py">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/decision_tree_without_randomization.rb">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="3105">
-          <caret line="69" selection-start-line="69" selection-end-line="69" />
+    <entry file="file://$PROJECT_DIR$/data_banknote_authentication.csv">
+      <provider selected="true" editor-type-id="csv-text-editor">
+        <state relative-caret-position="6885">
+          <caret line="153" column="31" selection-start-line="153" selection-start-column="31" selection-end-line="153" selection-end-column="31" />
         </state>
       </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/decision_tree.rb">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-322">
-          <caret line="73" column="37" selection-start-line="73" selection-start-column="37" selection-end-line="73" selection-end-column="37" />
-        </state>
+      <provider editor-type-id="text-editor" />
+      <provider editor-type-id="csv-table-editor">
+        <state showInfoPanel="true" fixedHeaders="false" rowLines="3" />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/decision_tree_with_randomization.rb">
+    <entry file="file://$PROJECT_DIR$/random_forest_decision_tree.rb">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-819">
-          <caret line="54" column="46" lean-forward="true" selection-start-line="54" selection-start-column="46" selection-end-line="54" selection-end-column="46" />
+        <state relative-caret-position="3870">
+          <caret line="86" column="25" selection-start-line="86" selection-start-column="25" selection-end-line="86" selection-end-column="25" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/sonar.all-data.csv">
       <provider selected="true" editor-type-id="csv-text-editor">
-        <state relative-caret-position="-18">
+        <state relative-caret-position="450">
           <caret line="10" column="421" selection-start-line="10" selection-start-column="421" selection-end-line="10" selection-end-column="421" />
         </state>
       </provider>
@@ -338,35 +289,38 @@
         <state showInfoPanel="true" fixedHeaders="false" rowLines="3" />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/random_forest_decision_tree.rb">
+    <entry file="file://$PROJECT_DIR$/decision_tree_without_randomization.rb">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="783">
-          <caret line="86" column="25" selection-start-line="86" selection-start-column="25" selection-end-line="86" selection-end-column="25" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/data_banknote_authentication.csv">
-      <provider editor-type-id="text-editor" />
-      <provider selected="true" editor-type-id="csv-text-editor">
-        <state relative-caret-position="766">
-          <caret line="153" column="31" selection-start-line="153" selection-start-column="31" selection-end-line="153" selection-end-column="31" />
-        </state>
-      </provider>
-      <provider editor-type-id="csv-table-editor">
-        <state showInfoPanel="true" fixedHeaders="false" rowLines="3" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/bagging_with_randomization.rb">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-3">
-          <caret line="85" column="17" lean-forward="true" selection-start-line="85" selection-start-column="17" selection-end-line="85" selection-end-column="17" />
+        <state relative-caret-position="3105">
+          <caret line="69" selection-start-line="69" selection-end-line="69" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/random_forest_with_randomisation.rb">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-522">
-          <caret line="123" column="16" lean-forward="true" selection-start-line="123" selection-start-column="16" selection-end-line="123" selection-end-column="16" />
+        <state relative-caret-position="-30">
+          <caret line="104" column="19" lean-forward="true" selection-start-line="104" selection-start-column="19" selection-end-line="104" selection-end-column="19" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/bagging_with_randomization.rb">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="219">
+          <caret line="101" column="79" selection-start-line="101" selection-start-column="79" selection-end-line="101" selection-end-column="79" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/decision_tree.rb">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-744">
+          <caret line="73" column="37" selection-start-line="73" selection-start-column="37" selection-end-line="73" selection-end-column="37" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/decision_tree_with_randomization.rb">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1044">
+          <caret line="78" column="19" lean-forward="true" selection-start-line="78" selection-start-column="19" selection-end-line="78" selection-end-column="19" />
         </state>
       </provider>
     </entry>
